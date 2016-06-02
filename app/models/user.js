@@ -17,6 +17,7 @@ const userSchema = new mongoose.Schema({
     require: true,
   },
   events: [EventSchema],
+  followee: [],
   passwordDigest: String,
 }, {
   timestamps: true,

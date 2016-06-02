@@ -8,14 +8,19 @@ const User = models.user;
 const authenticate = require('./concerns/authenticate');
 
 const index = (req, res, next) => {
-  Event.find()
+  console.log(req.currentUser);
+  User.findOne({"_id": req.currentUser._id}).then(function(user){
+    return user.events;
+  })
     .then(events => res.json({ events }))
     .catch(err => next(err));
 };
 
 const show = (req, res, next) => {
-  Event.findById(req.params.id)
-    .then(event => event ? res.json({ event }) : next())
+  User.findOne({"_id": req.currentUser._id}).then(function (user){
+   return user.events.id(req.params.id);
+  })
+    .then(concert => concert ? res.json({ concert }) : next())
     .catch(err => next(err));
 };
 
@@ -23,17 +28,9 @@ const create = (req, res, next) => {
   User.findById(req.currentUser._id).then (function(user){
     let event = Object.assign(req.body.event);
     user.events.push(event);
-    let success = user.save().then(function (err) {
-      if(err){
-        console.log(err);
-      }else{
-        return user;
-      }
-    });
-    console.log(success);
-    return success;
+    return user.save();
   })
-  .then(success => res.json({ success }))
+  .then(user => res.json({ user }))
   .catch(err => next(err));
 };
 
@@ -73,5 +70,5 @@ module.exports = controller({
   update,
   destroy,
 }, { before: [
-  { method: authenticate, except: ['index', 'show'] },
+  { method: authenticate},
 ], });

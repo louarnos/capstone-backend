@@ -44,9 +44,6 @@ const eventSchema = new mongoose.Schema({
   toJSON: { virtuals: true },
 });
 
-eventSchema.virtual('length').get(function length() {
-  return this.text.length;
-});
 
 const Event = mongoose.model('Event', eventSchema);
 
