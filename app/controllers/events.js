@@ -5,6 +5,7 @@ const models = require('app/models');
 const Event = models.event;
 const User = models.user;
 
+
 const authenticate = require('./concerns/authenticate');
 
 const index = (req, res, next) => {
@@ -33,6 +34,7 @@ const create = (req, res, next) => {
   .then(user => res.json({ user }))
   .catch(err => next(err));
 };
+
 
 const update = (req, res, next) => {
   let search = { _id: req.params.id, _owner: req.currentUser._id };
@@ -70,5 +72,5 @@ module.exports = controller({
   update,
   destroy,
 }, { before: [
-  { method: authenticate},
+  { method: authenticate, except: ['eventful']},
 ], });

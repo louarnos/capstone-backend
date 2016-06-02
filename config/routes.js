@@ -18,6 +18,8 @@ module.exports = require('lib/wiring/routes')
 .resources('users', { only: ['index', 'show'] })
 
 //events routes
-.resources('events');
+.resources('events')
+.post('/eventful', 'api#eventful');
+
 
 // all routes created
