@@ -4,9 +4,8 @@ const controller = require('lib/wiring/controller');
 const models = require('app/models');
 const Event = models.event;
 const User = models.user;
-
-
 const authenticate = require('./concerns/authenticate');
+
 
 const index = (req, res, next) => {
   console.log(req.currentUser);
