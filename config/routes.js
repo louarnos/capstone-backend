@@ -17,9 +17,13 @@ module.exports = require('lib/wiring/routes')
 .patch('/change-password/:id', 'users#changepw')
 .resources('users', { only: ['index', 'show'] })
 
-//events routes
+// Events routes
 .resources('events')
-.post('/eventful', 'api#eventful');
+.post('/eventful', 'api#eventful')
 
+// Followee Routes
+.get('/followees', 'users#getFollowees')
+.patch('/add-followee', 'users#addFollowee')
+.patch('/remove-followee', 'users#removeFollowee');
 
 // all routes created
