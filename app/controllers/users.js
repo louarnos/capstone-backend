@@ -41,7 +41,6 @@ const show = (req, res, next) => {
 };
 
 const addFollowee = (req, res, next) => {
-  console.log(req.currentUser);
   User.findById(req.currentUser._id).then( function(user){
     user.followee.push(req.body.followee_id);
     return user;
@@ -52,7 +51,17 @@ const addFollowee = (req, res, next) => {
 };
 
 const removeFollowee = (req, res, next) => {
-
+  User.findById(req.currentUser._id).then( function(user){
+    user.followee.forEach( function (followee, index, array){
+      if (followee === req.body.followee_id) {
+        array.splice(index, 1);
+      }
+    });
+    return user;
+  })
+  .then((user) => user.save())
+  .then((user) => user ? res.json ({user}) : next())
+  .catch(err => next(err));
 
 };
 

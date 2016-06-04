@@ -23,7 +23,7 @@ module.exports = require('lib/wiring/routes')
 
 // Followee Routes
 // .get('/followees', 'users#getFollowees')
-.put('/add-followee', 'users#addFollowee');
-// .patch('/remove-followee', 'users#removeFollowee');
+.put('/add-followee', 'users#addFollowee')
+.put('/remove-followee', 'users#removeFollowee');
 
 // all routes created
