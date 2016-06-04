@@ -22,8 +22,8 @@ module.exports = require('lib/wiring/routes')
 .post('/eventful', 'api#eventful')
 
 // Followee Routes
-.get('/followees', 'users#getFollowees')
-.patch('/add-followee', 'users#addFollowee')
-.patch('/remove-followee', 'users#removeFollowee');
+// .get('/followees', 'users#getFollowees')
+.patch('/add-followee', 'users#addFollowee');
+// .patch('/remove-followee', 'users#removeFollowee');
 
 // all routes created

@@ -9,7 +9,7 @@ const xml2json = require('xml2js').parseString
 // http://api.eventful.com/rest/events/search?app_key=sXx2bDsZHXXqVNkZ&category=music&location=boston&keywords=chvrches
 
 const eventful = (req, res, next) => {
-  console.log(req.body)
+  console.log(req.body);
   let url = `http://api.eventful.com/rest/events/search?app_key=${eventfulKey}&category=music`;
   if(req.body.location){
     url += '&location=' + req.body.location;

@@ -40,6 +40,22 @@ const show = (req, res, next) => {
     .catch(err => next(err));
 };
 
+const addFollowee = (req, res, next) => {
+  console.log(req.currentUser);
+  User.findById(req.currentUser._id).then( function(user){
+    user.followee.push(req.body.followee_id);
+    return user;
+  })
+  .then((user) => user.save())
+  .then((user) => user ? res.json ({user}) : next())
+  .catch(err => next(err));
+};
+
+const removeFollowee = (req, res, next) => {
+
+
+};
+
 const makeErrorHandler = (res, next) =>
   error =>
     error && error.name && error.name === 'ValidationError' ?
@@ -122,6 +138,8 @@ module.exports = controller({
   signin,
   signout,
   changepw,
+  addFollowee,
+  removeFollowee,
 }, { before: [
   { method: authenticate, except: ['signup', 'signin'] },
 ], });
