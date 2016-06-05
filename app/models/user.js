@@ -6,6 +6,15 @@ const uniqueValidator = require('mongoose-unique-validator');
 const Event = require('./event.js');
 const EventSchema = Event.schema;
 
+
+const followeeSchema =  new mongoose.Schema({
+  followee_id: {
+    type: String,
+    required: true,
+    ref: 'User'
+  }
+});
+
 const userSchema = new mongoose.Schema({
   email: {
     type: String,
@@ -22,7 +31,7 @@ const userSchema = new mongoose.Schema({
     require: true,
   },
   events: [EventSchema],
-  followee: [],
+  followee: [followeeSchema],
   passwordDigest: String,
 }, {
   timestamps: true,

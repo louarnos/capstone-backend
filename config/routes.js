@@ -22,7 +22,7 @@ module.exports = require('lib/wiring/routes')
 .post('/eventful', 'api#eventful')
 
 // Followee Routes
-// .get('/followees', 'users#getFollowees')
+.get('/followees', 'users#getFollowees')
 .put('/add-followee', 'users#addFollowee')
 .put('/remove-followee', 'users#removeFollowee');
 

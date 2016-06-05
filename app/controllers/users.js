@@ -1,17 +1,13 @@
 'use strict';
 
 const debug = require('debug')('event-bookmarker:users');
-
 const controller = require('lib/wiring/controller');
 const models = require('app/models');
 const User = models.user;
-
 const crypto = require('crypto');
-
 const authenticate = require('./concerns/authenticate');
-
 const HttpError = require('lib/wiring/http-error');
-
+const ObjectId = require('mongoose').Types.ObjectId;
 const MessageVerifier = require('lib/wiring/message-verifier');
 
 const encodeToken = (token) => {
@@ -42,7 +38,7 @@ const show = (req, res, next) => {
 
 const addFollowee = (req, res, next) => {
   User.findById(req.currentUser._id).then( function(user){
-    user.followee.push(req.body.followee_id);
+    user.followee.push({"followee_id": req.body.followee_id});
     return user;
   })
   .then((user) => user.save())
@@ -62,7 +58,24 @@ const removeFollowee = (req, res, next) => {
   .then((user) => user.save())
   .then((user) => user ? res.json ({user}) : next())
   .catch(err => next(err));
+};
 
+const getFollowees = (req, res, next) => {
+  User.findById(req.currentUser._id)
+  .then((user) => {
+    let followee_ids = [];
+    user.followee.forEach(function (followee){
+      console.log(followee.followee_id);
+      followee_ids.push(followee.followee_id);
+    });
+    return followee_ids;
+  })
+  .then((users) => User.find({'_id': { $in: users}}))
+  .then((users) => res.json(users))
+  .catch((err) => {
+    console.log(err.stack);
+    next(err);
+  });
 };
 
 const makeErrorHandler = (res, next) =>
@@ -149,6 +162,7 @@ module.exports = controller({
   changepw,
   addFollowee,
   removeFollowee,
+  getFollowees,
 }, { before: [
   { method: authenticate, except: ['signup', 'signin'] },
 ], });
