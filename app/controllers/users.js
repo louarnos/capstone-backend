@@ -25,9 +25,12 @@ const getToken = () =>
 const userFilter = { passwordDigest: 0, token: 0 };
 
 const index = (req, res, next) => {
-  User.find({}, userFilter)
+  User.find({}, userFilter).then( function(users){
+    console.log(users);
+    return users;
+  })
     .then(users => res.json({ users }))
-    .catch(err => next(err));
+    .catch(err => console.log(err.stack));
 };
 
 const show = (req, res, next) => {
@@ -86,6 +89,7 @@ const makeErrorHandler = (res, next) =>
 
 const signup = (req, res, next) => {
   let credentials = req.body.credentials;
+  console.log(req.body.credentials);
   let user = {
     email: credentials.email,
     password: credentials.password,
@@ -127,14 +131,14 @@ const signin = (req, res, next) => {
 const signout = (req, res, next) => {
   getToken().then(token =>
     User.findOneAndUpdate({
-      _id: req.params.id,
+      _id: req.currentUser._id,
       token: req.currentUser.token,
     }, {
       token,
     })
   ).then((user) =>
-    user ? res.sendStatus(200) : next()
-  ).catch(next);
+    user ? res.json({user}) : next()
+  ).catch((err) => console.log(err.stack));
 };
 
 const changepw = (req, res, next) => {
