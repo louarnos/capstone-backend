@@ -1,5 +1,5 @@
 #!/bin/bash
-TOKEN="q4Cy6aQDyd15isbFDQw3iMz4E2MVG4q7lyCuk9vJ1tE=--+KTJEHPp5HxKc/96i0oggYe8cAYYq+B+wf/Ixa7Ot20="
+TOKEN="Gtejqx/gFW44Tp+c3B/BSP9NoszOV0KwjrGjzRK5cfQ=--1fzWljsKAfPGou/4RXjJpfhYGl7QnMpRxsjgehT1Iu0="
   curl --include --request POST http://localhost:3000/sign-in \
     --header "Content-Type: application/json" \
     --data '{
