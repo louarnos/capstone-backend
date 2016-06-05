@@ -51,16 +51,16 @@ const update = (req, res, next) => {
 };
 
 const destroy = (req, res, next) => {
-  let search = { _id: req.params.id, _owner: req.currentUser._id };
-  Event.findOne(search)
-    .then(event => {
-      if (!event) {
+  User.findOne({"_id": req.currentUser._id })
+    .then(user => {
+      if (!user) {
         return next();
       }
-
-      return event.remove()
-        .then(() => res.sendStatus(200));
+      user.events.id(req.params.id).remove();
+      return user;
     })
+    .then((user) => user.save())
+    .then((user) => res.json({ user }))
     .catch(err => next(err));
 };
 

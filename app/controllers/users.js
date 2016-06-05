@@ -70,8 +70,8 @@ const getFollowees = (req, res, next) => {
     });
     return followee_ids;
   })
-  .then((users) => User.find({'_id': { $in: users}}))
-  .then((users) => res.json(users))
+  .then((followee_ids) => User.find({'_id': { $in: followee_ids}}))
+  .then((followees) => res.json(followees))
   .catch((err) => {
     console.log(err.stack);
     next(err);

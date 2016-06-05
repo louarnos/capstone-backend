@@ -1,4 +1,4 @@
-TOKEN="/RV0YBu0NLKvY+ce8ap2PIScKWBj7UxVb7V/fn9NbGA=--qmbke71N2m0zbHJMCYSUHLQgM6j73tYd38Kx/C9oVKM="
+TOKEN="Gtejqx/gFW44Tp+c3B/BSP9NoszOV0KwjrGjzRK5cfQ=--1fzWljsKAfPGou/4RXjJpfhYGl7QnMpRxsjgehT1Iu0="
 
 curl --include --request POST http://localhost:3000/events \
   --header "Content-Type: application/json" \
