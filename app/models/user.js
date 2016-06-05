@@ -33,8 +33,6 @@ const userSchema = new mongoose.Schema({
   events: [EventSchema],
   followee: [followeeSchema],
   passwordDigest: String,
-}, {
-  timestamps: true,
 });
 
 userSchema.plugin(uniqueValidator);

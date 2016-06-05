@@ -22,15 +22,21 @@ const getToken = () =>
     )
   );
 
-const userFilter = { passwordDigest: 0, token: 0 };
+const userFilter = {
+  passwordDigest: 0,
+  token: 0,
+  createdAt: 0,
+  updatedAt: 0,
+  __v: 0,
+  };
 
 const index = (req, res, next) => {
   User.find({}, userFilter).then( function(users){
-    console.log(users);
+    console.log(users)
     return users;
   })
     .then(users => res.json({ users }))
-    .catch(err => console.log(err.stack));
+    .catch(err => console.log(err));
 };
 
 const show = (req, res, next) => {
