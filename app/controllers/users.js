@@ -49,7 +49,7 @@ const addFollowee = (req, res, next) => {
 const removeFollowee = (req, res, next) => {
   User.findById(req.currentUser._id).then( function(user){
     user.followee.forEach( function (followee, index, array){
-      if (followee === req.body.followee_id) {
+      if (followee.followee_id === req.body.followee_id) {
         array.splice(index, 1);
       }
     });
