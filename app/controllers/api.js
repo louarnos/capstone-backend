@@ -21,10 +21,27 @@ const eventful = (req, res, next) => {
     if(error){
       console.log(error)
     }
+    let dataToReturn = [];
     let data = JSON.parse(response.body);
-    data = data.events.event;
-    console.log(data);
-    res.json( {'eventful': data });
+    data.events.event.forEach(function(concert, index){
+      let parsedConcert = {
+        'id': concert.id,
+        'city_name': concert.city_name,
+        'country_name': concert.country_name,
+        'region_name': concert.region_name,
+        'description': concert.description,
+        'title': concert.title,
+        'venue_url': concert.venue_url,
+        'venue_name': concert.venue_name,
+        'venue_address': concert.venue_address,
+        'start_time': concert.start_time,
+        'url': concert.url,
+        'image_url': concert.image.thumb.url,
+        'performer': concert.performers.performer,
+      };
+      dataToReturn.push(parsedConcert);
+    });
+    res.json( {'eventful-event': dataToReturn });
   });
 };
 
