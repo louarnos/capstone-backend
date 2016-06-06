@@ -10,7 +10,7 @@ const xml2json = require('xml2js').parseString
 
 const eventful = (req, res, next) => {
   console.log(req.body, "request body");
-  let url = `http://api.eventful.com/rest/events/search?app_key=${eventfulKey}&category=music`;
+  let url = `http://api.eventful.com/json/events/search?app_key=${eventfulKey}&category=music`;
   if(req.body.location){
     url += '&location=' + req.body.location;
   } if (req.body.keywords){
@@ -18,16 +18,13 @@ const eventful = (req, res, next) => {
   }
 
   request(url, function(error, response, body) {
-    let convertedXml;
-    xml2json(body, function (err,res){
-      if(err){
-        console.log(err);
-      }else {
-        convertedXml = res.search.events;
-        console.log(convertedXml)
-      }
-    });
-    res.json( {'eventful': convertedXml });
+    if(error){
+      console.log(error)
+    }
+    let data = JSON.parse(response.body);
+    data = data.events.event;
+    console.log(data);
+    res.json( {'eventful': data });
   });
 };
 
