@@ -1,44 +1,48 @@
 'use strict';
 
 const mongoose = require('mongoose');
+const schema = mongoose.Schema;
 
 const eventSchema = new mongoose.Schema({
-  artist: {
+  city_name: {
+    type: String
+  },
+  country_name: {
+    type: String
+  },
+  region_name: {
+    type: String
+  },
+  description: {
+    type: String
+  },
+  title: {
+    type: String
+  },
+  venue_url: {
+    type: String
+  },
+  venue_name: {
+    type: String
+  },
+  venue_address: {
+    type: String
+  },
+  start_time: {
+    type: Date
+  },
+  url: {
+    type: String
+  },
+  image_url: {
+    type: String
+  },
+  performer: {
+    type: schema.Types.Mixed
+  },
+  id:{
     type: String,
-    required: true,
   },
-  location: {
-    venue: {
-      name: {
-        type: String,
-        required: true,
-      },
-      city: {
-        type: String,
-        required: true,
-      },
-      region: {
-        type: String,
-        required: true,
-      }
-    }
-  },
-  date: {
-    month: {
-      type: String,
-      required: true,
-    },
-    day: {
-      name: {
-        type: String,
-        required: true,
-      },
-      num_of_day: {
-        type: Number,
-        required: true,
-      }
-    }
-  }
 }, {
   timestamps: true,
   toJSON: { virtuals: true },

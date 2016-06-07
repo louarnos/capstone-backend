@@ -26,12 +26,13 @@ const show = (req, res, next) => {
 
 const create = (req, res, next) => {
   User.findById(req.currentUser._id).then (function(user){
-    let event = Object.assign(req.body.event);
-    user.events.push(event);
+    let concert = req.body;
+    console.log(concert)
+    user.events.push(concert);
     return user.save();
   })
   .then(user => res.json({ user }))
-  .catch(err => next(err));
+  .catch(err => console.log(err.stack));
 };
 
 

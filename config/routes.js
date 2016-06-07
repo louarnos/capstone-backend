@@ -20,6 +20,7 @@ module.exports = require('lib/wiring/routes')
 // Events routes
 .resources('events')
 .post('/eventful', 'api#eventful')
+.get('/eventful_events', 'api#trash')
 
 // Followee Routes
 .get('/followees', 'users#getFollowees')

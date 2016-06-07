@@ -10,7 +10,7 @@ const xml2json = require('xml2js').parseString
 
 const eventful = (req, res, next) => {
   console.log(req.body, "request body");
-  let url = `http://api.eventful.com/json/events/search?app_key=${eventfulKey}&category=music`;
+  let url = `http://api.eventful.com/json/events/search?app_key=${eventfulKey}&category=music&page_size=25`;
   if(req.body.location){
     url += '&location=' + req.body.location;
   } if (req.body.keywords){
@@ -23,29 +23,34 @@ const eventful = (req, res, next) => {
     }
     let dataToReturn = [];
     let data = JSON.parse(response.body);
-    data.events.event.forEach(function(concert, index){
+    data.events.event.forEach(function(concert){
       let parsedConcert = {
-        'id': concert.id,
-        'city_name': concert.city_name,
-        'country_name': concert.country_name,
-        'region_name': concert.region_name,
-        'description': concert.description,
-        'title': concert.title,
-        'venue_url': concert.venue_url,
-        'venue_name': concert.venue_name,
-        'venue_address': concert.venue_address,
-        'start_time': concert.start_time,
-        'url': concert.url,
-        'image_url': concert.image.thumb.url,
-        'performer': concert.performers.performer,
+        'id': (concert.id ? concert.id : 'none'),
+        'city_name': (concert.city_name ? concert.city_name : 'none'),
+        'country_name': (concert.country_name ? concert.country_name : 'none'),
+        'region_name': (concert.region_name ? concert.region_name : 'none'),
+        'description': (concert.description ? concert.description : 'none'),
+        'title': (concert.title ? concert.title : 'none'),
+        'venue_url': (concert.venue_url ? concert.venue_url : 'none'),
+        'venue_name': (concert.venue_name ? concert.venue_name : 'none'),
+        'venue_address': (concert.venue_address ? concert.venue_address : 'none'),
+        'start_time': (concert.start_time ? concert.start_time : 'none'),
+        'url': (concert.url ? concert.url : 'none'),
+        'image_url': (concert.image ? concert.image.thumb.url : 'none'),
+        'performer': (concert.performers ? concert.performers.performer : 'none'),
       };
       dataToReturn.push(parsedConcert);
     });
-    res.json( {'eventful-event': dataToReturn });
+    res.json( {'eventful_event': dataToReturn });
   });
 };
 
 
+ const trash = (req, res, next) => {
+   res.json({'hi': 'hi'});
+ };
+
 module.exports = {
-  eventful
+  eventful,
+  trash
 };
