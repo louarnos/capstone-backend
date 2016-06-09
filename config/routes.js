@@ -14,7 +14,7 @@ module.exports = require('lib/wiring/routes')
 .post('/sign-up', 'users#signup')
 .post('/sign-in', 'users#signin')
 .delete('/sign-out/:id', 'users#signout')
-.put('/change-password/:id', 'users#changepw')
+.patch('/change-password/:id', 'users#changepw')
 .resources('users', { only: ['index', 'show'] })
 
 // Events routes
@@ -24,7 +24,7 @@ module.exports = require('lib/wiring/routes')
 
 // Followee Routes
 .get('/followees', 'users#getFollowees')
-.put('/add-followee', 'users#addFollowee')
-.put('/remove-followee', 'users#removeFollowee');
+.patch('/add-followee', 'users#addFollowee')
+.patch('/remove-followee', 'users#removeFollowee');
 
 // all routes created

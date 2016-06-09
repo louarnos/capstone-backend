@@ -35,13 +35,13 @@ const index = (req, res, next) => {
     return users;
   })
     .then(users => res.json({ users }))
-    .catch(err => console.log(err));
+    .catch((err) => console.log(err));
 };
 
 const show = (req, res, next) => {
   User.findById(req.params.id, userFilter)
     .then(user => user ? res.json({ user }) : next())
-    .catch(err => next(err));
+    .catch((err) => next(console.log(err)));
 };
 
 const addFollowee = (req, res, next) => {
