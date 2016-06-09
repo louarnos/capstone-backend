@@ -29,7 +29,7 @@ const eventSchema = new mongoose.Schema({
     type: String
   },
   start_time: {
-    type: Date
+    type: String
   },
   url: {
     type: String
