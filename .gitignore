@@ -1,5 +1,5 @@
 # Data not to be shared
-.env
+# .env
 credentials.csv
 
 # Created by https://www.gitignore.io/api/node,osx,linux,windows
@@ -100,4 +100,3 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
-
