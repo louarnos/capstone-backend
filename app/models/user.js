@@ -30,6 +30,12 @@ const userSchema = new mongoose.Schema({
     type: String,
     require: true,
   },
+  image_url: {
+    type: String,
+  },
+  bio: {
+    type: String,
+  },
   events: [EventSchema],
   followee: [followeeSchema],
   passwordDigest: String,

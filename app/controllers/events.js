@@ -57,6 +57,7 @@ const destroy = (req, res, next) => {
       if (!user) {
         return next();
       }
+      // user.events.shift();
       user.events.id(req.params.id).remove();
       return user;
     })
