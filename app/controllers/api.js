@@ -66,6 +66,7 @@ const eventful = (req, res, next) => {
       'image_url': (data.events.event.image ? data.events.event.image.thumb.url : 'none'),
       'performer': (data.events.event.performers ? data.events.event.performers.performer : 'none'),
     };
+    dataToReturn.push(parsedConcert);
     res.json( {'eventful_event': dataToReturn });
   }else {
     res.sendStatus(404);

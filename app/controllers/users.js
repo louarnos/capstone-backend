@@ -162,6 +162,28 @@ const changepw = (req, res, next) => {
   ).catch(makeErrorHandler(res, next));
 };
 
+const editbio = (req, res, next) => {
+  User.findOne({
+    _id: req.currentUser._id,
+    token: req.currentUser.token,
+  }).then((user) => {
+    user.bio = req.body.bio;
+    return user.save();
+  }).then((user) => res.json({ user }))
+    .catch((err) => next(err));
+};
+
+const addimg = (req, res, next) => {
+  User.findOne({
+    _id: req.currentUser._id,
+    token: req.currentUser.token,
+  }).then((user) => {
+    user.image_url = req.body.image_url;
+    return user.save();
+  }).then((user) => res.json({ user }))
+    .catch((err) => next(err));
+};
+
 module.exports = controller({
   index,
   show,
@@ -172,6 +194,8 @@ module.exports = controller({
   addFollowee,
   removeFollowee,
   getFollowees,
+  editbio,
+  addimg,
 }, { before: [
   { method: authenticate, except: ['signup', 'signin'] },
 ], });

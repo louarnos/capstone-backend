@@ -1,4 +1,4 @@
-'use strict';
+ 'use strict';
 
 module.exports = require('lib/wiring/routes')
 
@@ -15,6 +15,8 @@ module.exports = require('lib/wiring/routes')
 .post('/sign-in', 'users#signin')
 .delete('/sign-out/:id', 'users#signout')
 .patch('/change-password/:id', 'users#changepw')
+.patch('/user-bio', 'users#editbio')
+.patch('/user-img', 'users#addimg')
 .resources('users', { only: ['index', 'show'] })
 
 // Events routes
